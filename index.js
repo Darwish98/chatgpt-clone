@@ -17,18 +17,28 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/',  async (req, res) => {
-    const {message} = req.body;
-    console.log(message, "message");
+    const {message, model, temperature, tokens } = req.body;
+    console.log(model, temperature, tokens);
     const response =  await openai.chat.completions.create({
         messages: [{ role: "user", content: `${message}` }],
-        model: "gpt-3.5-turbo",
-        max_tokens: 50,
-        temperature: 0.4,
+        model: `${model}`,
+        max_tokens: Number(tokens),
+        temperature: Number(temperature),
     });
     res.json({
         message: response.choices[0].message.content,
     })
 });
+
+app.get('/models',  async (req, res) => {
+    const list = await openai.models.list();
+    console.log(list.data);
+    res.json({
+        models: list
+    });
+
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
