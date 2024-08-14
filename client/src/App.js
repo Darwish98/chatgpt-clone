@@ -9,7 +9,7 @@ function App() {
   const [temperature, setTemperature] = useState(0.4);
   const [tokens, setTokens] = useState(150);
   const [models, setModels] = useState([]);
-  const [currentModel, setCurrentModel] = useState("");
+  const [currentModel, setCurrentModel] = useState("gpt-3.5-turbo");
   const [chatLog, setChatLog] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const chatLogRef = useRef(null);
@@ -80,7 +80,7 @@ function App() {
           New Chat
         </div>
         <div className='models'>
-          <select onChange={(e) => {
+          <select value={currentModel} onChange={(e) => {
             setCurrentModel(e.target.value);
             }}>
             {models.map((model, index) => (
@@ -121,12 +121,18 @@ function App() {
 
 
       </aside>
-      <section className="chatbox">
+      <section className={`chatbox ${chatLog.length === 0 ? 'empty' : ''}`}>
+        {chatLog.length === 0 ? (
+          <div className="empty-chat-message empty">
+            
+          </div>
+        ) : (
         <div className="chat-log" ref={chatLogRef}>
           {chatLog.map((message, index) => (
             <ChatMessage key={index} message={message} />
           ))}
         </div>
+        )}
         <div className="chat-input-holder">
           <form onSubmit={handleSubmit}>
             <input

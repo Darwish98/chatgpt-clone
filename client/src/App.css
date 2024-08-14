@@ -135,6 +135,24 @@
   height: 100%;
 }
 
+.chatbox.empty{
+  align-items: center;
+  justify-content: center;
+}
+
+
+.empty-chat-message{
+  display: flex;
+  background-image: url("./media/chatgpt.svg");
+  background-size: 80%;
+  background-position: center; 
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  width: 100px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -157,6 +175,8 @@
 .chat-input-textarea{
   background-color: #40414f ;
   width: 90%;
+  height: 50px;
+  max-width: 800px;
   padding: 12px;
   border-radius: 25px; 
   color: white; 
